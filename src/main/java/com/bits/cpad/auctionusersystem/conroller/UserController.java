@@ -15,14 +15,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(name ="/user/{id}", produces = "application/json")
+    @GetMapping("/user/{id}")
     public UserDetails getUserById(@PathVariable("id") Long userId) {
         if (userId != 0) {
             return userService.getUserById(userId);
         } else throw new IllegalArgumentException("UserId in path is zero");
     }
 
-    @GetMapping(name = "/user-name")
+    @GetMapping("/user")
     public UserDetails getUserByUserName(@RequestParam("username") String userName) {
         if (!userName.isEmpty()) {
             return userService.getUserByUserName(userName);
@@ -38,17 +38,17 @@ public class UserController {
         return userDetails;
     }
 
-    @PostMapping(name = "/new-user")
+    @PostMapping
     public Long addUserDetails(@RequestBody @NotNull UserDetails userDetails) {
         return userService.addUser(userDetails);
     }
 
-    @PutMapping(name = "/update-user")
+    @PutMapping
     public UserDetails updateUserDetails(@RequestBody @NotNull UserDetails userDetails) {
         return userService.updateUser(userDetails);
     }
 
-    @DeleteMapping(name = "/user/{userId}")
+    @DeleteMapping("/user/{userId}")
     public boolean deleteUserDetail(@PathVariable("userId") @NotNull Long userId){
         if (userId != 0) {
             return userService.deleteUser(userId);
